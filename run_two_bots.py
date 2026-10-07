@@ -1,7 +1,9 @@
 import os
 import subprocess
 import sys
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def _terminate_stale_project_bots() -> None:
     import psutil
@@ -27,8 +29,8 @@ def main() -> None:
     _terminate_stale_project_bots()
 
     env = os.environ.copy()
-    mixed_token = env.get("TELEGRAM_BOT_TOKEN_MIXED") or "8994284779:AAFbankKA7pdIZ8COERHm4e_5XRhZZhuLc4"
-    single_token = env.get("TELEGRAM_BOT_TOKEN_SINGLE") or "8984819329:AAE_3cLiainaEXaEswueYBcly7Rj4PYq0U8"
+    mixed_token = env.get("TELEGRAM_BOT_TOKEN_MIXED", "").strip()
+    single_token = env.get("TELEGRAM_BOT_TOKEN_SINGLE", "").strip()
 
     env["TELEGRAM_BOT_TOKEN_MIXED"] = mixed_token
     env["TELEGRAM_BOT_TOKEN_SINGLE"] = single_token

@@ -2,7 +2,9 @@ import logging
 import json
 import os
 import re
+from dotenv import load_dotenv
 
+load_dotenv()
 from telegram import (
     KeyboardButton,
     ReplyKeyboardMarkup,
@@ -26,7 +28,6 @@ from bouquet_generator import (
 
 BOT_TOKEN: str = (
     os.environ.get("TELEGRAM_BOT_TOKEN_SINGLE", "").strip()
-    or "8984819329:AAE_3cLiainaEXaEswueYBcly7Rj4PYq0U8"
 )
 WEB_APP_URL: str = (
     os.environ.get("TELEGRAM_WEB_APP_URL_SINGLE", "https://xavierviscount.github.io/HPS-Souvenir-Program-Single/")

@@ -1,6 +1,9 @@
 import logging
 import json
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 import re
 from collections import Counter
 
