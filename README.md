@@ -22,8 +22,13 @@ The project runs via long polling, meaning it doesn't require a public IP, domai
    ```powershell
    pip install -r requirements.txt
    ```
+   *(This installs `python-telegram-bot`, `Pillow`, `python-dotenv`, and `psutil`)*
 
-*(Note: `requirements.txt` installs `python-telegram-bot` and `Pillow` (PIL))*
+4. **Configure your environment variables:**
+   - Rename the provided `.env.example` file to `.env`
+   - Open `.env` in a text editor.
+   - Replace the placeholder tokens (`YOUR_SINGLE_BOT_TOKEN_HERE`, etc.) with your actual Telegram bot tokens from BotFather.
+   - If you deployed your web apps to GitHub Pages, replace the `YOUR_GITHUB_USERNAME` placeholders with your actual GitHub username URL.
 
 ## Running the Bots
 
@@ -34,8 +39,9 @@ python run_two_bots.py
 ```
 
 ### How the Launcher Works:
-- `run_two_bots.py` automatically injects the necessary bot tokens into the environment so you do not need to manually configure them.
-- It spins up both `bot_single.py` and `bot_mixed.py` in the background.
+- `run_two_bots.py` automatically loads your credentials from the `.env` file so you do not need to manually configure environment variables in your terminal.
+- It automatically checks for and terminates any old "ghost" versions of the bot that might be lingering in the background from previous crashes.
+- It spins up both `bot_single.py` and `bot_mixed.py` side-by-side.
 - Press `Ctrl+C` in your terminal to gracefully stop both bots.
 
 ### Testing the bots:
