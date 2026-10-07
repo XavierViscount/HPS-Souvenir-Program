@@ -133,9 +133,9 @@ async def on_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             read_timeout=120,
             write_timeout=120,
         )
-
-        await message.reply_text(final_text)
         final_text = "✅ အသစ်မှာယူရန် /start ကို နှိပ်ပါ။"
+        await message.reply_text(final_text)
+        
 
     except FileNotFoundError as exc:
         logger.error("Premade image missing: %s", exc)
