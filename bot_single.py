@@ -26,12 +26,10 @@ from bouquet_generator import (
     to_burmese_num,
 )
 
-BOT_TOKEN: str = (
-    os.environ.get("TELEGRAM_BOT_TOKEN_SINGLE", "").strip()
-)
-WEB_APP_URL: str = (
-    os.environ.get("TELEGRAM_WEB_APP_URL_SINGLE", "https://xavierviscount.github.io/HPS-Souvenir-Program-Single/")
-    or "https://xavierviscount.github.io/HPS-Souvenir-Program-Single/"
+BOT_TOKEN: str = os.environ.get("TELEGRAM_BOT_TOKEN_SINGLE", "YOUR_SINGLE_BOT_TOKEN_HERE").strip()
+WEB_APP_URL: str = os.environ.get(
+    "TELEGRAM_WEB_APP_URL_SINGLE", 
+    "https://your-github-username.github.io/HPS-Souvenir-Program-Single/"
 ).strip()
 
 logging.basicConfig(
@@ -159,9 +157,9 @@ async def on_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 
 def main() -> None:
-    if not BOT_TOKEN or BOT_TOKEN == "PASTE_YOUR_TELEGRAM_BOT_TOKEN_HERE":
-        raise RuntimeError("Paste your Telegram bot token into BOT_TOKEN before running bot_single.py")
-    if not WEB_APP_URL or WEB_APP_URL.startswith("https://YOUR-GITHUB"):
+    if not BOT_TOKEN or BOT_TOKEN == "YOUR_SINGLE_BOT_TOKEN_HERE":
+        raise RuntimeError("Set TELEGRAM_BOT_TOKEN_SINGLE in the environment before running bot_single.py")
+    if not WEB_APP_URL or WEB_APP_URL.startswith("https://your-github-username"):
         raise RuntimeError("Set TELEGRAM_WEB_APP_URL_SINGLE to the deployed single app HTTPS URL before running bot_single.py")
 
     application = Application.builder().token(BOT_TOKEN).build()

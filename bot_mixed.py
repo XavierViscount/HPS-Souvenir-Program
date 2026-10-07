@@ -32,10 +32,10 @@ from bouquet_generator import (
     to_burmese_num,
 )
 
-BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN_MIXED", "").strip()
-WEB_APP_URL = (
-    os.environ.get("TELEGRAM_WEB_APP_URL", "https://xavierviscount.github.io/HPS-Souvenir-Program-Mixed/")
-    or "https://xavierviscount.github.io/HPS-Souvenir-Program-Mixed/"
+BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN_MIXED", "YOUR_MIXED_BOT_TOKEN_HERE").strip()
+WEB_APP_URL = os.environ.get(
+    "TELEGRAM_WEB_APP_URL_MIXED", 
+    "https://your-github-username.github.io/HPS-Souvenir-Program-Mixed/"
 ).strip()
 
 logging.basicConfig(
@@ -355,7 +355,7 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
 
 def main() -> None:
-    if not BOT_TOKEN:
+    if not BOT_TOKEN or BOT_TOKEN == "YOUR_MIXED_BOT_TOKEN_HERE":
         raise RuntimeError("Set TELEGRAM_BOT_TOKEN_MIXED in the environment before running bot_mixed.py")
 
     application = Application.builder().token(BOT_TOKEN).build()
