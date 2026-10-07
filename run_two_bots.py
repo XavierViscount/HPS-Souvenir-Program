@@ -4,19 +4,23 @@ import sys
 
 
 def _terminate_stale_project_bots() -> None:
+    import psutil
     script_names = ["bot_mixed.py", "bot_single.py", "run_two_bots.py"]
-    script_filter = " | ".join(f"$_.CommandLine -match '{name}'" for name in script_names)
-    command = (
-        "Get-CimInstance Win32_Process | "
-        "Where-Object { $_.Name -eq 'python.exe' -and ("
-        f"{script_filter}"
-        ") } | "
-        "ForEach-Object { $_.Terminate() }"
-    )
-    try:
-        subprocess.run(["powershell", "-NoProfile", "-Command", command], check=False)
-    except FileNotFoundError:
-        pass
+    current_pid = os.getpid()
+    parent_pid = os.getppid()
+
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        try:
+            if proc.info['name'] and 'python' in proc.info['name'].lower():
+                pid = proc.info['pid']
+                if pid == current_pid or pid == parent_pid:
+                    continue
+                cmdline = proc.info.get('cmdline') or []
+                if any(script_name in cmd for cmd in cmdline for script_name in script_names):
+                    print(f"Terminating stale process {pid}: {' '.join(cmdline)}")
+                    proc.terminate()
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
 
 
 def main() -> None:

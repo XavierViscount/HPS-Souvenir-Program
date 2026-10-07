@@ -225,11 +225,12 @@ async def on_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await message.reply_document(
             document=photo_bytesio,
             filename=_souvenir_filename(student_id, len(selected)),
-            caption=caption,
-            parse_mode="Markdown",
+            read_timeout=120,
+            write_timeout=120,
         )
 
-        await message.reply_text("✅ အမှတ်တရကတ် ပေးပို့ပြီးပါပြီ။ အသစ်ပြုလုပ်ရန် Mini App ကို ပြန်ဖွင့်ပါ။")
+        final_text = f"{caption}\n\n✅ အသစ်ပြုလုပ်ရန် Mini App ကို ပြန်ဖွင့်ပါ။"
+        await message.reply_text(final_text, parse_mode="Markdown")
     except Exception:
         logger.exception("Mixed Mini App bouquet generation failed for user %s", user.id)
         try:
@@ -330,12 +331,13 @@ async def on_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             await query.message.reply_document(
                 document=photo_bytesio,
                 filename=filename,
-                caption=caption,
-                parse_mode="Markdown",
+                read_timeout=120,
+                write_timeout=120,
             )
 
+            final_text = f"{caption}\n\n✅ အသစ်ပြုလုပ်ရန် /start ကို နှိပ်ပါ။"
             await query.edit_message_text(
-                "✅ *ပန်းစည်းလွှာ ပေးပို့ပြီးပါပြီ!*\n\nအသစ်ပြုလုပ်ရန် /start ကို နှိပ်ပါ။",
+                final_text,
                 parse_mode="Markdown",
             )
             context.user_data[_KEY_SELECTED] = []

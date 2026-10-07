@@ -131,12 +131,12 @@ async def on_web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await message.reply_document(
             document=photo_bytesio,
             filename=filename,
-            caption=caption,
+            read_timeout=120,
+            write_timeout=120,
         )
 
-        await message.reply_text(
-            "✅ အမှတ်တရကတ် ပေးပို့ပြီးပါပြီ။ အသစ်မှာယူရန် /start ကို နှိပ်ပါ။"
-        )
+        await message.reply_text(final_text)
+        final_text = "✅ အသစ်မှာယူရန် /start ကို နှိပ်ပါ။"
 
     except FileNotFoundError as exc:
         logger.error("Premade image missing: %s", exc)
