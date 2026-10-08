@@ -25,7 +25,6 @@ FLOWERS_DIR = os.path.join(ASSETS_DIR, "flowers")
 CARD_PATH = os.path.join(ASSETS_DIR, "background", "souvenir_card.png")
 RIBBON_PATH = os.path.join(ASSETS_DIR, "ribbon", "ribbon.png")
 THABYAY_PATH = os.path.join(ASSETS_DIR, "thabyay.png")
-LOGO_PATH = os.path.join(ASSETS_DIR, "logo", "image.png")
 
 # Premade single-type bouquet images  (PremadeFlowers/<key>/1.PNG … 10.PNG)
 PREMADE_FLOWERS_DIR = os.path.join(BASE_DIR, "PremadeFlowers")
@@ -498,11 +497,6 @@ def generate_bouquet(
             )
             draw.text(dash_position, "—", font=font_check, fill=(190, 150, 160, 200))
 
-    if os.path.exists(LOGO_PATH):
-        logo_img = Image.open(LOGO_PATH).convert("RGBA")
-        logo_img.thumbnail((250, 250), Image.LANCZOS)
-        card.alpha_composite(logo_img, (120, 120))
-
     # ── 5. Save Output Image ─────────────────────────────────────────────────
     if output_path:
         output_path = os.path.abspath(output_path)
@@ -737,11 +731,6 @@ def generate_single_bouquet(
                 font=font_check,
                 fill=(190, 150, 160, 200),
             )
-
-    if os.path.exists(LOGO_PATH):
-        logo_img = Image.open(LOGO_PATH).convert("RGBA")
-        logo_img.thumbnail((250, 250), Image.LANCZOS)
-        card.alpha_composite(logo_img, (120, 120))
 
     # ── 5. Save ───────────────────────────────────────────────────────────────
     if output_path:
